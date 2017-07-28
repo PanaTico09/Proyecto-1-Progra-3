@@ -333,21 +333,6 @@ public class ListaTest {
     }
 
     /**
-     * Test of getMitad method, of class Lista.
-     */
-    @Test
-    public void testGetMitad() {
-        System.out.println("getMitad");
-        Nodo inicial = null;
-        Lista instance = new Lista();
-        Nodo expResult = null;
-        Nodo result = instance.getMitad(inicial);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-       
-    }
-
-    /**
      * Test of toString method, of class Lista.
      */
     @Test
@@ -356,6 +341,21 @@ public class ListaTest {
         Lista instance = new Lista();
         String expResult = "";
         String result = instance.toString();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        
+    }
+
+    /**
+     * Test of dividirLista method, of class Lista.
+     */
+    @Test
+    public void testDividirLista() {
+        System.out.println("dividirLista");
+        Nodo inicial = null;
+        Lista instance = new Lista();
+        Nodo expResult = null;
+        Nodo result = instance.dividirLista(inicial);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         
