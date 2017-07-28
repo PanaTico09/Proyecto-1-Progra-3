@@ -424,21 +424,20 @@ public class Lista<T extends Comparable<T>> {
                 derIni = derIni.getSiguiente();
             }
 
-            if (mezclar == null) {
-                mezclar = aux;
-            } else {
+            if (mezclar != null) {
                 añadido.setSiguiente(aux);
+            } else {
+                mezclar = aux;
             }
             añadido = aux;
         }
 
-        if (izqIni != null) {
-            añadido.setSiguiente(izqIni);
-        } else {
+        if (izqIni == null) {
             añadido.setSiguiente(derIni);
+        } else {
+            añadido.setSiguiente(izqIni);
         }
         cabeza = mezclar;
-
     }
 
     /**
