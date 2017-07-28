@@ -120,21 +120,21 @@ public class Pila<T extends Comparable<T>> {
      */
     public boolean validarCedulaPasaporte(String documento) {
         boolean bandera = false;
-        Nodo aux = cabeza;
+        Nodo aux = peek();
         int cont = 0;
         if ((documento.length() != 11 && documento.length() != 7) || (documento.length() == 7 && pasaporteFormato(documento)) || (documento.length() == 11 && cedulaFormato(documento))) {
             bandera = true;
             System.err.println("La Cedula debe incluir 11 digitos incluyendo los guiones,"
                     + " ademas de que no puede iniciar con 0 y el Pasaporte debe incluir una Letra y seis digitos.");
         }
-        while (cont < size()) {
+        while (cont < size) {
             if (aux.getPersona().getCedula().equals(documento)) {
                 bandera = true;
                 System.err.println("El pasaporte o Cedula introducido ya existe.");
                 break;
             }
             cont++;
-            aux = aux.getSiguiente();
+            aux = aux.getAnterior();
         }
         return bandera;
     }
