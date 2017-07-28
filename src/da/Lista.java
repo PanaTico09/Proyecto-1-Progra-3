@@ -388,7 +388,7 @@ public class Lista<T extends Comparable<T>> {
         }
         //Divide la lista en 2 listas.
         //Encuentra el nodo de la mitad de la lista y divide la lista en 2.
-        Nodo mitad = getMitad(inicial);
+        Nodo mitad = dividirLista(inicial);
         Nodo sigMitad = mitad.getSiguiente();
         mitad.setSiguiente(null);
 
@@ -442,14 +442,14 @@ public class Lista<T extends Comparable<T>> {
     }
 
     /**
-     * <h1>GetMitad</h1>
+     * <h1>Dividir Lista</h1>
      * <p>
      * Busca la mitad de la lista.</p>
      *
      * @param inicial Nodo donde inicia la lista.
      * @return Nodo: Puntero.
      */
-    public Nodo getMitad(Nodo inicial) {
+    public Nodo dividirLista(Nodo inicial) {
         if (inicial == null) {
             return inicial;
         }
