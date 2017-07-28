@@ -1,7 +1,5 @@
 package da;
 
-import java.util.Iterator;
-
 /**
  *
  * @author Johan Herrera
@@ -48,11 +46,11 @@ public class Lista<T extends Comparable<T>> {
      * <p>
      * Agrega personas a la lista simple.</p>
      *
-     * @param nombre
-     * @param apellido
-     * @param apellido2
-     * @param documento
-     * @param edad
+     * @param nombre Nombre de la Persona
+     * @param apellido Primer Apellido de la Persona
+     * @param apellido2 Segundo Apellido de la Persona
+     * @param documento Documento de la Persona
+     * @param edad Edad de la Persona
      * @return boolean: Con el resultado de la operacion.
      */
     public boolean addSimple(String nombre, String apellido, String apellido2, String documento, double edad) {
@@ -82,11 +80,11 @@ public class Lista<T extends Comparable<T>> {
      * <p>
      * Agrega la persona al inicio de la lista</p>
      *
-     * @param nombre
-     * @param apellido
-     * @param apellido2
-     * @param documento
-     * @param edad
+     * @param nombre Nombre de la Persona
+     * @param apellido Primer Apellido de la Persona
+     * @param apellido2 Segundo Apellido de la Persona
+     * @param documento Documento de la Persona
+     * @param edad Edad de la Persona
      * @return boolean: el resultado de la operacion
      */
     public boolean addFirstSimple(String nombre, String apellido, String apellido2, String documento, double edad) {
@@ -109,11 +107,11 @@ public class Lista<T extends Comparable<T>> {
      * <p>
      * Agrega personas a la lista Circular.</p>
      *
-     * @param nombre
-     * @param apellido
-     * @param apellido2
-     * @param documento
-     * @param edad
+     * @param nombre Nombre de la Persona
+     * @param apellido Primer Apellido de la Persona
+     * @param apellido2 Segundo Apellido de la Persona
+     * @param documento Documento de la Persona
+     * @param edad Edad de la Persona
      * @return boolean: con el resultado de la operacion.
      */
     public boolean addCircular(String nombre, String apellido, String apellido2, String documento, double edad) {
@@ -140,6 +138,186 @@ public class Lista<T extends Comparable<T>> {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * <h1>Validar Cedula Pasaporte</h1>
+     * <p>
+     * Comprueba si la Cedula o el Pasaporte introducido cumple con los
+     * requerimientos necesarios.</p>
+     *
+     * @param documento String que se desea validar.
+     * @return boolean: Con el resultado de la operacion.
+     */
+    public boolean validarCedulaPasaporte(String documento) {
+        boolean bandera = false;
+        Nodo aux = cabeza;
+        int cont = 0;
+        if ((documento.length() != 11 && documento.length() != 7) || (documento.length() == 7 && pasaporteFormato(documento)) || (documento.length() == 11 && cedulaFormato(documento))) {
+            bandera = true;
+            System.err.println("La Cedula debe incluir 11 digitos incluyendo los guiones,"
+                    + " ademas de que no puede iniciar con 0 y el Pasaporte debe incluir una Letra y seis digitos.");
+        }
+        while (cont < size()) {
+            if (aux.getPersona().getCedula().equals(documento)) {
+                bandera = true;
+                System.err.println("El pasaporte o Cedula introducido ya existe.");
+                break;
+            }
+            cont++;
+            aux = aux.getSiguiente();
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>Pasaporte Formato</h1>
+     * <p>
+     * Verifica que el pasaporte cumpla con los requerimientos. Iniciar con una
+     * letra y tener 6 numeros.</p>
+     *
+     * @param Pasaporte String que se desea validar
+     * @return boolean: con el resultado de la operacion.
+     */
+    public boolean pasaporteFormato(String Pasaporte) {
+        boolean bandera = false;
+        for (int i = 1; i < 7; i++) {
+            if (Character.isLetter(Pasaporte.charAt(i))) {
+                bandera = true;
+            }
+        }
+        if (!Character.isLetter(Pasaporte.charAt(0))) {
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>Cedula Formato</h1>
+     * <p>
+     * Verifica que la cedula cumpla con los requerimientos. Iniciar con un
+     * numero que no puede ser 0. Seguido debe llevar un guion. Despues cuatro
+     * numeros otro guion y otros cuatro numeros.</p>
+     *
+     * @param Cedula String que se desea validar
+     * @return boolean: con el resultado de la operacion.
+     */
+    public boolean cedulaFormato(String Cedula) {
+        boolean bandera = false;
+        for (int i = 2; i < 5; i++) {
+            if (!Character.isDigit(Cedula.charAt(i))) {
+                bandera = true;
+            }
+        }
+        for (int i = 7; i < 11; i++) {
+            if (!Character.isDigit(Cedula.charAt(i))) {
+                bandera = true;
+            }
+        }
+        if (!Character.isDigit(Cedula.charAt(0)) || Cedula.charAt(1) != '-' || Cedula.charAt(6) != '-' || Cedula.charAt(0) == '0') {
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>Pasaporte Cedula</h1>
+     * <p>
+     * Comprueba si el documento introducido es un pasaporte o una cedula.</p>
+     *
+     * @param Documento String que se desea comprobar.
+     * @return boolean con el resultado de la operacion.
+     */
+    public boolean pasaporteCedula(String Documento) {
+        boolean bandera = false;
+        if (abcMayus(Documento.charAt(0)) || abcMinus(Documento.charAt(0))) {
+            bandera = true;
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>AbcMayus</h1>
+     * <p>
+     * Verifica si el caracter introducido es una letra del abecedario en
+     * Mayuscula. De ser asi significa que el numero entrante es un
+     * Pasaporte.</p>
+     *
+     * @param letra caracter que se desea validar
+     * @return boolean: el resultado de la operacion.
+     */
+    public boolean abcMayus(char letra) {
+        char a = (char) 65;
+        boolean bandera = false;
+        for (int i = 0; i < 26; i++) {
+            if (a == letra) {
+                bandera = true;
+                break;
+            } else {
+                a = (char) (a + 1);
+            }
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>AbcMinus</h1>
+     * <p>
+     * Verifica si el caracter introducido es una letra del abecedario en
+     * Minuscula. De ser asi significa que el numero entrante es un
+     * Pasaporte.</p>
+     *
+     * @param letra caracter que se desea validar
+     * @return boolean: el resultado de la operacion.
+     */
+    public boolean abcMinus(char letra) {
+        char a = (char) 97;
+        boolean bandera = false;
+        for (int i = 0; i < 26; i++) {
+            if (a == letra) {
+                bandera = true;
+                break;
+            } else {
+                a = (char) (a + 1);
+            }
+        }
+        return bandera;
+    }
+
+    /**
+     * <h1>Remove</h1>
+     * <p>
+     * Comprueba si el index introducido es valido. De ser asi elimina a la
+     * persona de la lista.</p>
+     *
+     * @param index posicion del nodo a eliminar.
+     * @return
+     */
+    public boolean remove(int index) {
+        if (0 == size) {
+            return false;
+        } else if (0 > index || index > size - 1) {
+            throw new ArrayIndexOutOfBoundsException("Indice invalido");
+        } else {
+            if (0 == index) {
+                cabeza = cabeza.getSiguiente();
+            } else if (index == size - 1) {
+                Nodo aux = cabeza;
+                while (aux.getSiguiente() != null) {
+                    aux = aux.getSiguiente();
+                }
+                aux.setSiguiente(null);
+                ultimo = aux;
+            } else {
+                Nodo aux = cabeza;
+                for (int i = 0; i < index - 1; i++) {
+                    aux = aux.getSiguiente();
+                }
+                aux.setSiguiente(aux.getSiguiente().getSiguiente());
+            }
+            --size;
+            return true;
         }
     }
 
@@ -175,11 +353,7 @@ public class Lista<T extends Comparable<T>> {
                     remove(0);
                     cont3--;
                 }
-                Nodo aux3 = cabeza;
-                while (aux3 != null) { //Declara cual va a ser el Ultimo nodo de la lista.
-                    ultimo = aux3;
-                    aux3 = aux3.getSiguiente();
-                }
+                ultimoNodoLista();
                 while (cont2 > 0) { //Añade nuevamente las personas a la lista.
                     addSimple(aux2.getPersona().getNombre(), aux2.getPersona().getApellido(),
                             aux2.getPersona().getApellido2(), aux2.getPersona().getCedula(), aux2.getPersona().getEdad());
@@ -188,191 +362,14 @@ public class Lista<T extends Comparable<T>> {
                 }
                 cont--;
             }
-            aux = cabeza;
-            while (aux != null) { //Declara cual va a ser el ultimo nodo de la lista.
-                ultimo = aux;
-                aux = aux.getSiguiente();
-            }
         }
     }
 
-    /**
-     * <h1>Validar Cedula Pasaporte</h1>
-     * <p>
-     * Comprueba si la Cedula o el Pasaporte introducido cumple con los
-     * requerimientos necesarios.</p>
-     *
-     * @param documento
-     * @return boolean: Con el resultado de la operacion.
-     */
-    public boolean validarCedulaPasaporte(String documento) {
-        boolean bandera = false;
+    public void ultimoNodoLista() {
         Nodo aux = cabeza;
-        int cont = 0;
-        if ((documento.length() != 11 && documento.length() != 7) || (documento.length() == 7 && pasaporteFormato(documento)) || (documento.length() == 11 && cedulaFormato(documento))) {
-            bandera = true;
-            System.err.println("La Cedula debe incluir 11 digitos incluyendo los guiones,"
-                    + " ademas de que no puede iniciar con 0 y el Pasaporte debe incluir una Letra y seis digitos.");
-        }
-        while (cont < size()) {
-            if (aux.getPersona().getCedula().equals(documento)) {
-                bandera = true;
-                System.err.println("El pasaporte o Cedula introducido ya existe.");
-                break;
-            }
-            cont++;
+        while (aux != null) { //Declara cual va a ser el Ultimo nodo de la lista.
+            ultimo = aux;
             aux = aux.getSiguiente();
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>Pasaporte Formato</h1>
-     * <p>
-     * Verifica que el pasaporte cumpla con los requerimientos. Iniciar con una
-     * letra y tener 6 numeros.</p>
-     *
-     * @param Pasaporte
-     * @return boolean: con el resultado de la operacion.
-     */
-    public boolean pasaporteFormato(String Pasaporte) {
-        boolean bandera = false;
-        for (int i = 1; i < 7; i++) {
-            if (Character.isLetter(Pasaporte.charAt(i))) {
-                bandera = true;
-            }
-        }
-        if (!Character.isLetter(Pasaporte.charAt(0))) {
-            bandera = true;
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>Cedula Formato</h1>
-     * <p>
-     * Verifica que la cedula cumpla con los requerimientos. Iniciar con un
-     * numero que no puede ser 0. Seguido debe llevar un guion. Despues cuatro
-     * numeros otro guion y otros cuatro numeros.</p>
-     *
-     * @param Cedula
-     * @return boolean: con el resultado de la operacion.
-     */
-    public boolean cedulaFormato(String Cedula) {
-        boolean bandera = false;
-        for (int i = 2; i < 5; i++) {
-            if (!Character.isDigit(Cedula.charAt(i))) {
-                bandera = true;
-            }
-        }
-        for (int i = 7; i < 11; i++) {
-            if (!Character.isDigit(Cedula.charAt(i))) {
-                bandera = true;
-            }
-        }
-        if (!Character.isDigit(Cedula.charAt(0)) || Cedula.charAt(1) != '-' || Cedula.charAt(6) != '-' || Cedula.charAt(0) == '0') {
-            bandera = true;
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>Pasaporte Cedula</h1>
-     * <p>
-     * Comprueba si el documento introducido es un pasaporte o una cedula.</p>
-     *
-     * @param Documento
-     * @return boolean con el resultado de la operacion.
-     */
-    public boolean pasaporteCedula(String Documento) {
-        boolean bandera = false;
-        if (abcMayus(Documento.charAt(0)) || abcMinus(Documento.charAt(0))) {
-            bandera = true;
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>AbcMayus</h1>
-     * <p>
-     * Verifica si el caracter introducido es una letra del abecedario en
-     * Mayuscula. De ser asi significa que el numero entrante es un
-     * Pasaporte.</p>
-     *
-     * @param letra
-     * @return boolean: el resultado de la operacion.
-     */
-    public boolean abcMayus(char letra) {
-        char a = (char) 65;
-        boolean bandera = false;
-        for (int i = 0; i < 26; i++) {
-            if (a == letra) {
-                bandera = true;
-                break;
-            } else {
-                a = (char) (a + 1);
-            }
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>AbcMinus</h1>
-     * <p>
-     * Verifica si el caracter introducido es una letra del abecedario en
-     * Minuscula. De ser asi significa que el numero entrante es un
-     * Pasaporte.</p>
-     *
-     * @param letra
-     * @return boolean: el resultado de la operacion.
-     */
-    public boolean abcMinus(char letra) {
-        char a = (char) 97;
-        boolean bandera = false;
-        for (int i = 0; i < 26; i++) {
-            if (a == letra) {
-                bandera = true;
-                break;
-            } else {
-                a = (char) (a + 1);
-            }
-        }
-        return bandera;
-    }
-
-    /**
-     * <h1>Remove</h1>
-     * <p>
-     * Comprueba si el index introducido es valido. De ser asi elimina a la
-     * persona de la lista.</p>
-     *
-     * @param index
-     * @return
-     */
-    public boolean remove(int index) {
-        if (0 == size) {
-            return false;
-        } else if (0 > index || index > size - 1) {
-            throw new ArrayIndexOutOfBoundsException("Indice invalido");
-        } else {
-            if (0 == index) {
-                cabeza = cabeza.getSiguiente();
-            } else if (index == size - 1) {
-                Nodo aux = cabeza;
-                while (aux.getSiguiente() != null) {
-                    aux = aux.getSiguiente();
-                }
-                aux.setSiguiente(null);
-                ultimo = aux;
-            } else {
-                Nodo aux = cabeza;
-                for (int i = 0; i < index - 1; i++) {
-                    aux = aux.getSiguiente();
-                }
-                aux.setSiguiente(aux.getSiguiente().getSiguiente());
-            }
-            --size;
-            return true;
         }
     }
 
@@ -381,7 +378,7 @@ public class Lista<T extends Comparable<T>> {
      * <p>
      * Ordena la lista utilizando el metodo de ordenamiento por mezcla</p>
      *
-     * @param inicial
+     * @param inicial Nodo donde empieza la lista.
      * @return Nodo: Cabeza.
      */
     public Nodo mergeSort(Nodo inicial) {
@@ -410,8 +407,8 @@ public class Lista<T extends Comparable<T>> {
      * <p>
      * Mezcla las sublistas creadas por el MergeSort</p>
      *
-     * @param izqIni
-     * @param derIni
+     * @param izqIni Inicio de la Lista Izquierda
+     * @param derIni Inicio de la Lista Derecha
      */
     public void merge(Nodo izqIni, Nodo derIni) {
         Nodo aux;
@@ -445,11 +442,11 @@ public class Lista<T extends Comparable<T>> {
     }
 
     /**
-     * <h1>Get Mitad</h1>
+     * <h1>GetMitad</h1>
      * <p>
      * Busca la mitad de la lista.</p>
      *
-     * @param inicial
+     * @param inicial Nodo donde inicia la lista.
      * @return Nodo: Puntero.
      */
     public Nodo getMitad(Nodo inicial) {
@@ -479,7 +476,7 @@ public class Lista<T extends Comparable<T>> {
             }
             return builder.toString();
         }
-        return "Lista Vacia.";
+        return "";
     }
 
 }

@@ -46,18 +46,19 @@ public class Pila<T extends Comparable<T>> {
      * <p>
      * Agrega una persona a la pila. </p>
      *
-     * @param nombre
-     * @param apellido
-     * @param apellido2
-     * @param cedula
-     * @param edad
+     * @param nombre Nombre de la Persona
+     * @param apellido Primer Apellido de la Persona
+     * @param apellido2 Segundo Apellido de la Persona
+     * @param documento Documento de la Persona
+     * @param edad Edad de la Persona
      */
-    public void push(String nombre, String apellido, String apellido2, String cedula, double edad) {
-        if (!validarCedulaPasaporte(cedula)) {
-            if (pasaporteCedula(cedula)) {
-                cedula = cedula.toUpperCase();
+    public void push(String nombre, String apellido, String apellido2, String documento, double edad) {
+        if (!validarCedulaPasaporte(documento)) {
+            if (pasaporteCedula(documento)) {
+                documento = documento.toUpperCase();
             }
-            Persona persona = new Persona(nombre, apellido, apellido2, cedula, edad);
+
+            Persona persona = new Persona(nombre, apellido, apellido2, documento, edad);
             Nodo nuevo = new Nodo(persona);
             if (isEmpty()) {
                 cabeza = nuevo;
@@ -77,13 +78,16 @@ public class Pila<T extends Comparable<T>> {
      * <p>
      * Remueve el ultimo nodo de la pila.</p>
      *
-     * @return Nodo: con el ultimo nodo eliminado.
+     * @return Nodo: Removido.
      */
     public Nodo pop() {
+        Nodo<T> aux = ultimo;
         if (!isEmpty()) {
-            Nodo<T> aux = ultimo;
             ultimo = ultimo.getAnterior();
             size--;
+            if (size == 0) {
+                cabeza = null;
+            }
             return aux;
         } else {
             return null;
@@ -111,7 +115,7 @@ public class Pila<T extends Comparable<T>> {
      * Comprueba si la Cedula o el Pasaporte introducido cumple con los
      * requerimientos necesarios.</p>
      *
-     * @param documento
+     * @param documento String que se desea validar.
      * @return boolean: Con el resultado de la operacion.
      */
     public boolean validarCedulaPasaporte(String documento) {
@@ -141,7 +145,7 @@ public class Pila<T extends Comparable<T>> {
      * Verifica que el pasaporte cumpla con los requerimientos. Iniciar con una
      * letra y tener 6 numeros.</p>
      *
-     * @param Pasaporte
+     * @param Pasaporte String que se desea validar
      * @return boolean: con el resultado de la operacion.
      */
     public boolean pasaporteFormato(String Pasaporte) {
@@ -164,7 +168,7 @@ public class Pila<T extends Comparable<T>> {
      * numero que no puede ser 0. Seguido debe llevar un guion. Despues cuatro
      * numeros otro guion y otros cuatro numeros.</p>
      *
-     * @param Cedula
+     * @param Cedula String que se desea validar.
      * @return boolean: con el resultado de la operacion.
      */
     public boolean cedulaFormato(String Cedula) {
@@ -190,8 +194,8 @@ public class Pila<T extends Comparable<T>> {
      * <p>
      * Comprueba si el documento introducido es un pasaporte o una cedula.</p>
      *
-     * @param Documento
-     * @return boolean: con el resultado.
+     * @param Documento String que se desea comprobar
+     * @return boolean con el resultado.
      */
     public boolean pasaporteCedula(String Documento) {
         boolean bandera = false;
@@ -208,7 +212,7 @@ public class Pila<T extends Comparable<T>> {
      * Mayuscula. De ser asi significa que el numero entrante es un
      * Pasaporte.</p>
      *
-     * @param letra
+     * @param letra caracter que se desea validar
      * @return boolean: el resultado de la operacion.
      */
     public boolean abcMayus(char letra) {
@@ -232,7 +236,7 @@ public class Pila<T extends Comparable<T>> {
      * Minuscula. De ser asi significa que el numero entrante es un
      * Pasaporte.</p>
      *
-     * @param letra
+     * @param letra caracter que se desea validar.
      * @return boolean: el resultado de la operacion.
      */
     public boolean abcMinus(char letra) {
@@ -249,6 +253,74 @@ public class Pila<T extends Comparable<T>> {
         return bandera;
     }
 
+    /**
+     * <h1>Pop Multiple</h1>
+     * <p>
+     * Remueve de la pila a todas las personas hasta llegar al index deseado.
+     * </p>
+     *
+     * @param index cantidad de pop que se desean realizar.
+     * @return boolean: con el resultado de la operacion.
+     */
+    public boolean popMultiple(int index) {
+        if (isEmpty()) {
+            return false;
+        } else {
+            while (index > 0) {
+                pop();
+                index--;
+            }
+
+            return true;
+        }
+    }
+
+    /**
+     * <h1>Pasaporte Primero</h1>
+     * <p>
+     * Busca los pasaportes y cedulas en la pila. Y los divide en listas
+     * auxiliares para luego ser agregados en el orden Pasaportes primero
+     * seguido de las cedulas.</p>
+     */
+    public void pasaportePrimero() {
+        Nodo aux = cabeza;
+        Pila cedulaAux = new Pila();
+        Pila pasaporteAux = new Pila();
+        while (aux != null) {
+            if (pasaporteCedula(aux.getPersona().getCedula())) { //Si es un pasaporte lo agrega a la pila auxiliar de pasaportes.
+                pasaporteAux.push(aux.getPersona().getNombre(), aux.getPersona().getApellido(),
+                        aux.getPersona().getApellido2(), aux.getPersona().getCedula(), aux.getPersona().getEdad());
+            } else {
+                cedulaAux.push(aux.getPersona().getNombre(), aux.getPersona().getApellido(), //Sino lo agrega a la pila auxiliar de cedulas.
+                        aux.getPersona().getApellido2(), aux.getPersona().getCedula(), aux.getPersona().getEdad());
+            }
+            aux = aux.getSiguiente();
+        }
+        popMultiple(size); // Vacia la pila
+        agregarDesdePilaAux(pasaporteAux); //Agrega las personas registradas con pasaporte.
+        agregarDesdePilaAux(cedulaAux);    //Agrega las personas registradas con cedula.
+    }
+
+    /**
+     * <h1>Agregar Desde PilaAux</h1>
+     * <p>
+     * Agrega a las personas desde otras pilas auxiliares y las añade a la pila
+     * deseada.</p>
+     *
+     * @param pilaAux pila que se desea agregar.
+     */
+    public void agregarDesdePilaAux(Pila pilaAux) {
+        if (!pilaAux.isEmpty()) {
+            Nodo aux = pilaAux.cabeza;
+            while (aux != null) {
+                push(aux.getPersona().getNombre(), aux.getPersona().getApellido(), //Agrega los pasaportes a la pila original.
+                        aux.getPersona().getApellido2(), aux.getPersona().getCedula(), aux.getPersona().getEdad());
+                aux = aux.getSiguiente();
+            }
+            pilaAux.popMultiple(size);
+        } 
+    }
+
     @Override
     public String toString() {
         if (!isEmpty()) {
@@ -263,6 +335,6 @@ public class Pila<T extends Comparable<T>> {
             }
             return builder.toString();
         }
-        return null;
+        return "";
     }
 }

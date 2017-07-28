@@ -46,11 +46,11 @@ public class Cola<T extends Comparable<T>> {
      * <p>
      * Añade una persona a la cola.</p>
      *
-     * @param nombre
-     * @param apellido
-     * @param apellido2
-     * @param documento
-     * @param edad
+     * @param nombre Nombre de la Persona
+     * @param apellido Primer Apellido de la Persona
+     * @param apellido2 Segundo Apellido de la Persona
+     * @param documento Documento de la Persona
+     * @param edad Edad de la Persona
      */
     public void queue(String nombre, String apellido, String apellido2, String documento, double edad) {
         if (!validarCedulaPasaporte(documento)) {
@@ -84,9 +84,9 @@ public class Cola<T extends Comparable<T>> {
         if (!isEmpty()) {
             cabeza = cabeza.getSiguiente();
             size--;
-            return aux;
-        } else if (size == 1) {
-            cabeza = null;
+            if (size == 0) {
+                cabeza = null;
+            }
             return aux;
         } else {
             return null;
@@ -114,7 +114,7 @@ public class Cola<T extends Comparable<T>> {
      * Comprueba si la Cedula o el Pasaporte introducido cumple con los
      * requerimientos necesarios.</p>
      *
-     * @param documento
+     * @param documento String que se desea validar.
      * @return boolean: Con el resultado de la operacion.
      */
     public boolean validarCedulaPasaporte(String documento) {
@@ -144,7 +144,7 @@ public class Cola<T extends Comparable<T>> {
      * Verifica que el pasaporte cumpla con los requerimientos. Iniciar con una
      * letra y tener 6 numeros.</p>
      *
-     * @param Pasaporte
+     * @param Pasaporte String que se desea validar
      * @return boolean: con el resultado de la operacion.
      */
     public boolean pasaporteFormato(String Pasaporte) {
@@ -167,7 +167,7 @@ public class Cola<T extends Comparable<T>> {
      * numero que no puede ser 0. Seguido debe llevar un guion. Despues cuatro
      * numeros otro guion y otros cuatro numeros.</p>
      *
-     * @param Cedula
+     * @param Cedula String que se desea validar
      * @return boolean: con el resultado de la operacion.
      */
     public boolean cedulaFormato(String Cedula) {
@@ -187,12 +187,13 @@ public class Cola<T extends Comparable<T>> {
         }
         return bandera;
     }
+
     /**
      * <h1>Pasaporte Cedula</h1>
      * <p>
      * Comprueba si el documento introducido es un pasaporte o una cedula.</p>
      *
-     * @param Documento
+     * @param Documento String que se desea comprobar
      * @return boolean: con el resultado.
      */
     public boolean pasaporteCedula(String Documento) {
@@ -210,7 +211,7 @@ public class Cola<T extends Comparable<T>> {
      * Mayuscula. De ser asi significa que el numero entrante es un
      * Pasaporte.</p>
      *
-     * @param letra
+     * @param letra caracter que se desea validar
      * @return boolean: el resultado de la operacion.
      */
     public boolean abcMayus(char letra) {
@@ -234,7 +235,7 @@ public class Cola<T extends Comparable<T>> {
      * Minuscula. De ser asi significa que el numero entrante es un
      * Pasaporte.</p>
      *
-     * @param letra
+     * @param letra caracter que se desea validar
      * @return boolean: el resultado de la operacion.
      */
     public boolean abcMinus(char letra) {
@@ -249,6 +250,27 @@ public class Cola<T extends Comparable<T>> {
             }
         }
         return bandera;
+    }
+
+    /**
+     * <h1>Dequeue Multiple</h1>
+     * <p>
+     * Remueve de la cola a todas las personas hasta llegar al index deseado.
+     * </p>
+     *
+     * @param index cantidad de dequeues que se desean realizar.
+     * @return boolean: Con el resultado de la operacion.
+     */
+    public boolean dequeueMultiple(int index) {
+        if (isEmpty()) {
+            return false;
+        } else {
+            while (index > 0) {
+                dequeue();
+                index--;
+            }
+            return true;
+        }
     }
 
     /**
@@ -287,33 +309,6 @@ public class Cola<T extends Comparable<T>> {
             }
             cont--;
         }
-
-        aux = cabeza;
-        while (aux != null) { //Busca el ultimo nodo de la pila.
-            ultimo = aux;
-            aux = aux.getSiguiente();
-        }
-    }
-
-    /**
-     * <h1>Dequeue Multiple</h1>
-     * <p>
-     * Remueve de la cola a todas las personas hasta llegar al index deseado.
-     * </p>
-     *
-     * @param index
-     * @return boolean: Con el resultado de la operacion.
-     */
-    public boolean dequeueMultiple(int index) {
-        if (isEmpty()) {
-            return false;
-        } else {
-            while (index > 0) {
-                dequeue();
-                index--;
-            }
-            return true;
-        }
     }
 
     /**
@@ -351,9 +346,9 @@ public class Cola<T extends Comparable<T>> {
      * <p>
      * Ordena la Cola.</p>
      *
-     * @param colaOrdenada
-     * @param añadido
-     * @return Nodo: Ordenado.
+     * @param colaOrdenada Nodos ordenados
+     * @param añadido Nodo que se desea ordenar
+     * @return Cola ordenada.
      */
     public Nodo sortedInsert(Nodo colaOrdenada, Nodo añadido) {
         if (colaOrdenada == null) { //Si la Cola Ordenada se encuentra vacia.
@@ -393,7 +388,6 @@ public class Cola<T extends Comparable<T>> {
             }
             return builder.toString();
         }
-        return null;
+        return "";
     }
-
 }
