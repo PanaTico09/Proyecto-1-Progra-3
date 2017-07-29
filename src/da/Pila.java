@@ -37,6 +37,10 @@ public class Pila<T extends Comparable<T>> {
         return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
+
     public boolean isEmpty() {
         return cabeza == null;
     }
@@ -281,6 +285,7 @@ public class Pila<T extends Comparable<T>> {
      * Busca los pasaportes y cedulas en la pila. Y los divide en listas
      * auxiliares para luego ser agregados en el orden Pasaportes primero
      * seguido de las cedulas.</p>
+     *
      */
     public void pasaportePrimero() {
         Nodo aux = cabeza;
@@ -318,7 +323,119 @@ public class Pila<T extends Comparable<T>> {
                 aux = aux.getSiguiente();
             }
             pilaAux.popMultiple(size);
-        } 
+        }
+    }
+
+    /**
+     * <h1>Obtener Tamaño</h1>
+     * <p>
+     * Obtiene el tamaño de la pila.</p>
+     *
+     * @param p pila
+     * @return int tamaño
+     */
+    public int obtenerTamaño(Pila p) {
+        int cont = 0;
+        Nodo aux = p.getCabeza();
+        while (aux.getSiguiente() != null) {
+            cont++;
+            aux = aux.getSiguiente();
+        }
+        return cont;
+    }
+
+    /**
+     * <h1>Obtener Nodo</h1>
+     * Obtener un nodo en la posicion deseada.
+     *
+     * @param p pila
+     * @param index indice
+     * @return Nodo
+     */
+    public Nodo obtenerNodo(Pila p, int index) {
+        int cont = 0;
+        Nodo aux = p.getCabeza();
+        while (cont != index) {
+            cont++;
+            aux = aux.getSiguiente();
+        }
+        if (aux == null) {
+            System.out.println("No se encontro ningun nodo en la posicion digitada.");
+            return null;
+        }
+        return aux;
+    }
+
+    /**
+     * <h1>HeapSort</h1>
+     * Ordena la pila por monticulos.
+     *
+     * @param p pila
+     */
+    public void heapSort(Pila p) {
+        int cont = size;
+        heapify(p);
+        for (int i = size; i > 0; i--) {
+            swap(p, 0, i);
+            size = size - 1;
+            maxheap(p, 0);
+        }
+        setSize(cont);
+    }
+
+    /**
+     * <h1>Heapify</h1>
+     * Construye el monticulo
+     *
+     * @param p pila
+     */
+    public void heapify(Pila p) {
+        size = obtenerTamaño(p);
+        for (int i = size / 2; i >= 0; i--) {
+            maxheap(p, i);
+        }
+    }
+
+    /**
+     * <h1>Swap</h1>
+     * Intercambia las posiciones.
+     *
+     * @param p pila
+     * @param i primera posicion
+     * @param j segunda posicion
+     */
+    public void swap(Pila p, int i, int j) {
+        Persona tmp = obtenerNodo(p, i).getPersona();
+        obtenerNodo(p, i).setPersona(obtenerNodo(p, j).getPersona());
+        obtenerNodo(p, j).setPersona(tmp);
+
+    }
+
+    /**
+     * <h1>MaxHeap</h1>
+     * Intercambia el elemento mayor del monticulo.
+     *
+     * @param p pila
+     * @param i index
+     */
+    public void maxheap(Pila p, int i) {
+        int izq = 2 * i;
+        int der = 2 * i + 1;
+        int max = i;
+        if (izq <= size) {
+            if (obtenerNodo(p, izq).getPersona().getCedula().compareTo(obtenerNodo(p, i).getPersona().getCedula()) > 0) {
+                max = izq;
+            }
+        }
+        if (der <= size) {
+            if (obtenerNodo(p, der).getPersona().getCedula().compareTo(obtenerNodo(p, max).getPersona().getCedula()) > 0) {
+                max = der;
+            }
+        }
+        if (max != i) {
+            swap(p, i, max);
+            maxheap(p, max);
+        }
     }
 
     @Override

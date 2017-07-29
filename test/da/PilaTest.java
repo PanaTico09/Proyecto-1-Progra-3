@@ -308,4 +308,115 @@ public class PilaTest {
 
     }
 
+    /**
+     * Test of setSize method, of class Pila.
+     */
+    @Test
+    public void testSetSize() {
+        System.out.println("setSize");
+        int size = 0;
+        Pila instance = new Pila();
+        instance.setSize(size);
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of obtenerTamaño method, of class Pila.
+     */
+    @Test
+    public void testObtenerTamaño() {
+        System.out.println("obtenerTama\u00f1o");
+        Pila p = null;
+        if (p != null) {
+            Pila instance = new Pila();
+            int expResult = 0;
+            int result = instance.obtenerTamaño(p);
+            assertEquals(expResult, result);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of obtenerNodo method, of class Pila.
+     */
+    @Test
+    public void testObtenerNodo() {
+        System.out.println("obtenerNodo");
+        Pila p = null;
+        int index = 0;
+        Pila instance = new Pila();
+        if (p != null) {
+            Nodo expResult = null;
+            Nodo result = instance.obtenerNodo(p, index);
+            assertEquals(expResult, result);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of heapSort method, of class Pila.
+     */
+    @Test
+    public void testHeapSort() {
+        System.out.println("heapSort");
+        Pila p = null;
+        if (p != null) {
+            Pila instance = new Pila();
+            instance.heapSort(p);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of heapify method, of class Pila.
+     */
+    @Test
+    public void testHeapify() {
+        System.out.println("heapify");
+        Pila p = null;
+        if (p != null) {
+            Pila instance = new Pila();
+            instance.heapify(p);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of swap method, of class Pila.
+     */
+    @Test
+    public void testSwap() {
+        System.out.println("swap");
+        Pila p = null;
+        int i = 0;
+        int j = 0;
+        if (p != null) {
+            Pila instance = new Pila();
+            instance.swap(p, i, j);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of maxheap method, of class Pila.
+     */
+    @Test
+    public void testMaxheap() {
+        System.out.println("maxheap");
+        Pila p = null;
+        int i = 0;
+        if (p != null) {
+            Pila instance = new Pila();
+            instance.maxheap(p, i);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+    }
+
 }
