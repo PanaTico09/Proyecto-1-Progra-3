@@ -364,7 +364,13 @@ public class Lista<T extends Comparable<T>> {
             }
         }
     }
-
+    
+    /**
+     * <h1>UltimoNodoLista</h1>
+     * <p>
+     * Declara el ultimo nodo de la lista en caso de que haya cambiado al
+     * ordenar la estructura.</p>
+     */
     public void ultimoNodoLista() {
         Nodo aux = cabeza;
         while (aux != null) { //Declara cual va a ser el Ultimo nodo de la lista.

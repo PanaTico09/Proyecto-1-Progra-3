@@ -312,6 +312,20 @@ public class Cola<T extends Comparable<T>> {
     }
 
     /**
+     * <h1>Ultimo Nodo Cola</h1>
+     * <p>
+     * Declara el ultimo nodo de la lista en caso de que haya cambiado al
+     * ordenar la estructura.</p>
+     */
+    public void ultimoNodoCola() {
+        Nodo aux = top();
+        while (aux != null) { //Declara cual va a ser el Ultimo nodo de la lista.
+            ultimo = aux;
+            aux = aux.getSiguiente();
+        }
+    }
+
+    /**
      * <h1>Insertion Sort</h1>
      * <p>
      * Metodo de ordenamiento por insercion inserta la cedula de menor a mayor.
@@ -320,7 +334,7 @@ public class Cola<T extends Comparable<T>> {
      */
     public void insertionSort() {
         Nodo aux = top();
-        if (aux == null || aux.getSiguiente() == null) { //Equivalente a size = 0 o 1. De ser asi la lista esta vacia o ordenada respectivamente.
+        if (aux == null || aux.getSiguiente() == null) { //Equivalente a size = 0 o 1. De ser asi la Cola esta vacia o ordenada respectivamente.
             return;
         }
 
@@ -333,11 +347,7 @@ public class Cola<T extends Comparable<T>> {
         }
 
         cabeza = ColaOrdenada;
-        aux = cabeza;
-        while (aux != null) {
-            ultimo = aux;       //Declara cual es el ultimo de la cola, despues de ordenar la cola.
-            aux = aux.getSiguiente();
-        }
+        ultimoNodoCola();
         pasaportePrimero();     //Coloca los pasaportes primero despues de ordenar.
     }
 
