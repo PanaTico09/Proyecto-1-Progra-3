@@ -419,4 +419,19 @@ public class PilaTest {
 //        fail("The test case is a prototype.");
     }
 
+    /**
+     * Test of brickSort method, of class Pila.
+     */
+    @Test
+    public void testBrickSort() {
+        System.out.println("brickSort");
+        Pila p = null;
+        if (p != null) {
+            Pila instance = new Pila();
+            instance.brickSort(p);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
 }

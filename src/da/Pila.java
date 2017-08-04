@@ -335,13 +335,17 @@ public class Pila<T extends Comparable<T>> {
      * @return int tamaño
      */
     public int obtenerTamaño(Pila p) {
-        int cont = 0;
-        Nodo aux = p.getCabeza();
-        while (aux.getSiguiente() != null) {
-            cont++;
-            aux = aux.getSiguiente();
+        if (!p.isEmpty()) {
+            int cont = 0;
+            Nodo aux = p.getCabeza();
+            while (aux.getSiguiente() != null) {
+                cont++;
+                aux = aux.getSiguiente();
+            }
+            return cont;
+        }else{
+            return 0;
         }
-        return cont;
     }
 
     /**
@@ -353,17 +357,20 @@ public class Pila<T extends Comparable<T>> {
      * @return Nodo
      */
     public Nodo obtenerNodo(Pila p, int index) {
-        int cont = 0;
-        Nodo aux = p.getCabeza();
-        while (cont != index) {
-            cont++;
-            aux = aux.getSiguiente();
+        if (!p.isEmpty()) {
+            int cont = 0;
+            Nodo aux = p.getCabeza();
+            while (cont != index) {
+                cont++;
+                aux = aux.getSiguiente();
+            }
+            if (aux == null) {
+                System.out.println("No se encontro ningun nodo en la posicion digitada.");
+                return null;
+            }
+            return aux;
         }
-        if (aux == null) {
-            System.out.println("No se encontro ningun nodo en la posicion digitada.");
-            return null;
-        }
-        return aux;
+        return null;
     }
 
     /**
@@ -373,14 +380,16 @@ public class Pila<T extends Comparable<T>> {
      * @param p pila
      */
     public void heapSort(Pila p) {
-        int cont = size;
-        heapify(p);
-        for (int i = size; i > 0; i--) {
-            swap(p, 0, i);
-            size = size - 1;
-            maxheap(p, 0);
+        if (!p.isEmpty()) {
+            int cont = size;
+            heapify(p);
+            for (int i = size; i > 0; i--) {
+                swap(p, 0, i);
+                size = size - 1;
+                maxheap(p, 0);
+            }
+            setSize(cont);
         }
-        setSize(cont);
     }
 
     /**
@@ -390,9 +399,11 @@ public class Pila<T extends Comparable<T>> {
      * @param p pila
      */
     public void heapify(Pila p) {
-        size = obtenerTamaño(p);
-        for (int i = size / 2; i >= 0; i--) {
-            maxheap(p, i);
+        if (!p.isEmpty()) {
+            size = obtenerTamaño(p);
+            for (int i = size / 2; i >= 0; i--) {
+                maxheap(p, i);
+            }
         }
     }
 
@@ -405,10 +416,11 @@ public class Pila<T extends Comparable<T>> {
      * @param j segunda posicion
      */
     public void swap(Pila p, int i, int j) {
-        Persona tmp = obtenerNodo(p, i).getPersona();
-        obtenerNodo(p, i).setPersona(obtenerNodo(p, j).getPersona());
-        obtenerNodo(p, j).setPersona(tmp);
-
+        if (!p.isEmpty()) {
+            Persona tmp = obtenerNodo(p, i).getPersona();
+            obtenerNodo(p, i).setPersona(obtenerNodo(p, j).getPersona());
+            obtenerNodo(p, j).setPersona(tmp);
+        }
     }
 
     /**
@@ -419,22 +431,53 @@ public class Pila<T extends Comparable<T>> {
      * @param i index
      */
     public void maxheap(Pila p, int i) {
-        int izq = 2 * i;
-        int der = 2 * i + 1;
-        int max = i;
-        if (izq <= size) {
-            if (obtenerNodo(p, izq).getPersona().getCedula().compareTo(obtenerNodo(p, i).getPersona().getCedula()) > 0) {
-                max = izq;
+        if (!p.isEmpty()) {
+            int izq = 2 * i;
+            int der = 2 * i + 1;
+            int max = i;
+            if (izq <= size) {
+                if (obtenerNodo(p, izq).getPersona().getCedula().compareTo(obtenerNodo(p, i).getPersona().getCedula()) > 0) {
+                    max = izq;
+                }
+            }
+            if (der <= size) {
+                if (obtenerNodo(p, der).getPersona().getCedula().compareTo(obtenerNodo(p, max).getPersona().getCedula()) > 0) {
+                    max = der;
+                }
+            }
+            if (max != i) {
+                swap(p, i, max);
+                maxheap(p, max);
             }
         }
-        if (der <= size) {
-            if (obtenerNodo(p, der).getPersona().getCedula().compareTo(obtenerNodo(p, max).getPersona().getCedula()) > 0) {
-                max = der;
+    }
+
+    /**
+     * <h1>BrickSort</h1>
+     * <p>
+     * Ordena la pila mediante el metodo ordenamiento por ladrillos.
+     * </p>
+     *
+     * @param p pila
+     */
+    public void brickSort(Pila p) {
+        if (!p.isEmpty()) {
+            boolean sorted = false;
+            while (!sorted) {
+                sorted = true;
+                for (int i = 0; i < p.obtenerTamaño(p) - 1; i += 2) {
+                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
+                        swap(p, i, i + 1);
+                        sorted = false;
+                    }
+                }
+                for (int i = 1; i < p.obtenerTamaño(p) - 1; i += 2) {
+                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
+                        swap(p, i, i + 1);
+                        sorted = false;
+                    }
+                }
             }
-        }
-        if (max != i) {
-            swap(p, i, max);
-            maxheap(p, max);
         }
     }
 
