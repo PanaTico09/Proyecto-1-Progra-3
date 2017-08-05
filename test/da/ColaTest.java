@@ -320,5 +320,16 @@ public class ColaTest {
         // TODO review the generated test code and remove the default call to fail.
        
     }
+
+    /**
+     * Test of ultimoNodoCola method, of class Cola.
+     */
+    @Test
+    public void testUltimoNodoCola() {
+        System.out.println("ultimoNodoCola");
+        Cola instance = new Cola();
+        instance.ultimoNodoCola();
+        // TODO review the generated test code and remove the default call to fail.
+    }
     
 }

@@ -17,22 +17,22 @@ import static org.junit.Assert.*;
  * @author Johan Herrera
  */
 public class ListaTest {
-    
+
     public ListaTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,7 +48,7 @@ public class ListaTest {
         int result = instance.size();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       
+
     }
 
     /**
@@ -62,7 +62,7 @@ public class ListaTest {
         Nodo result = instance.getCabeza();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -74,7 +74,7 @@ public class ListaTest {
         Lista instance = new Lista();
         instance.setCabeza(null);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -88,7 +88,7 @@ public class ListaTest {
         Nodo result = instance.getUltimo();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -100,7 +100,7 @@ public class ListaTest {
         Lista instance = new Lista();
         instance.setUltimo(null);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -114,7 +114,7 @@ public class ListaTest {
         boolean result = instance.isEmpty();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -133,7 +133,7 @@ public class ListaTest {
         boolean result = instance.addSimple(nombre, apellido, apellido2, documento, edad);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -152,7 +152,7 @@ public class ListaTest {
         boolean result = instance.addFirstSimple(nombre, apellido, apellido2, documento, edad);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -171,7 +171,7 @@ public class ListaTest {
         boolean result = instance.addCircular(nombre, apellido, apellido2, documento, edad);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -186,7 +186,7 @@ public class ListaTest {
         boolean result = instance.validarCedulaPasaporte(documento);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -201,7 +201,7 @@ public class ListaTest {
         boolean result = instance.pasaporteFormato(Pasaporte);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -216,7 +216,7 @@ public class ListaTest {
         boolean result = instance.cedulaFormato(Cedula);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -231,7 +231,7 @@ public class ListaTest {
         boolean result = instance.pasaporteCedula(Documento);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -246,7 +246,7 @@ public class ListaTest {
         boolean result = instance.abcMayus(letra);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -261,7 +261,7 @@ public class ListaTest {
         boolean result = instance.abcMinus(letra);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -276,7 +276,7 @@ public class ListaTest {
         boolean result = instance.remove(index);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -288,7 +288,7 @@ public class ListaTest {
         Lista instance = new Lista();
         instance.pasaportePrimero();
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -300,7 +300,7 @@ public class ListaTest {
         Lista instance = new Lista();
         instance.ultimoNodoLista();
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -315,21 +315,7 @@ public class ListaTest {
         Nodo result = instance.mergeSort(inicial);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
-    }
 
-    /**
-     * Test of merge method, of class Lista.
-     */
-    @Test
-    public void testMerge() {
-        System.out.println("merge");
-        Nodo izqIni = null;
-        Nodo derIni = null;
-        Lista instance = new Lista();
-        instance.merge(izqIni, derIni);
-        // TODO review the generated test code and remove the default call to fail.
-        
     }
 
     /**
@@ -343,7 +329,7 @@ public class ListaTest {
         String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
 
     /**
@@ -358,7 +344,71 @@ public class ListaTest {
         Nodo result = instance.dividirLista(inicial);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        
+
     }
-    
+
+    /**
+     * Test of mergeS method, of class Lista.
+     */
+    @Test
+    public void testMergeS() {
+        System.out.println("mergeS");
+        Nodo izqIni = null;
+        Nodo derIni = null;
+        Lista instance = new Lista();
+        instance.mergeS(izqIni, derIni);
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
+    /**
+     * Test of obtenerNodo method, of class Lista.
+     */
+    @Test
+    public void testObtenerNodo() {
+        System.out.println("obtenerNodo");
+        Lista p = null;
+        int index = 0;
+        if (p != null) {
+            Lista instance = new Lista();
+            Nodo expResult = null;
+            Nodo result = instance.obtenerNodo(p, index);
+            assertEquals(expResult, result);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
+    /**
+     * Test of swap method, of class Lista.
+     */
+    @Test
+    public void testSwap() {
+        System.out.println("swap");
+        Lista p = null;
+        int i = 0;
+        int j = 0;
+        if (p != null) {
+            Lista instance = new Lista();
+            instance.swap(p, i, j);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
+    /**
+     * Test of brickSort method, of class Lista.
+     */
+    @Test
+    public void testBrickSort() {
+        System.out.println("brickSort");
+        Lista p = null;
+        if (p != null) {
+            Lista instance = new Lista();
+            instance.brickSort(p);
+        }
+        // TODO review the generated test code and remove the default call to fail.
+
+    }
+
 }

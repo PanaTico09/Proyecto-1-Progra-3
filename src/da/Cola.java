@@ -391,7 +391,7 @@ public class Cola<T extends Comparable<T>> {
             Nodo aux = top();
             int cont = 0;
             while (cont < size) {
-                builder.append(" - ").append(aux.getDato());
+                builder.append(" - ").append(aux.getPersona());
                 builder.append("\n");
                 aux = aux.getSiguiente();
                 cont++;

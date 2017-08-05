@@ -403,7 +403,7 @@ public class Lista<T extends Comparable<T>> {
         Nodo der = mergeSort(sigMitad);
 
         //Comienza a mezclar la mitad izq y la mitad der.
-        merge(izq, der);
+        mergeS(izq, der);
 
         return cabeza;
     }
@@ -416,7 +416,7 @@ public class Lista<T extends Comparable<T>> {
      * @param izqIni Inicio de la Lista Izquierda
      * @param derIni Inicio de la Lista Derecha
      */
-    public void merge(Nodo izqIni, Nodo derIni) {
+    public void mergeS(Nodo izqIni, Nodo derIni) {
         Nodo aux;
         Nodo mezclar = null;
         Nodo añadido = new Nodo(null);
@@ -467,6 +467,77 @@ public class Lista<T extends Comparable<T>> {
         return puntero1;
     }
 
+    /**
+     * <h1>Obtener Nodo</h1>
+     * Obtener un nodo en la posicion deseada.
+     *
+     * @param p lista
+     * @param index indice
+     * @return Nodo
+     */
+    public Nodo obtenerNodo(Lista p, int index) {
+        if (!p.isEmpty()) {
+            int cont = 0;
+            Nodo aux = p.getCabeza();
+            while (cont != index) {
+                cont++;
+                aux = aux.getSiguiente();
+            }
+            if (aux == null) {
+                System.out.println("No se encontro ningun nodo en la posicion digitada.");
+                return null;
+            }
+            return aux;
+        }
+        return null;
+    }
+
+    /**
+     * <h1>Swap</h1>
+     * Intercambia las posiciones.
+     *
+     * @param p lista
+     * @param i primera posicion
+     * @param j segunda posicion
+     */
+    public void swap(Lista p, int i, int j) {
+        if (!p.isEmpty()) {
+            Persona tmp = obtenerNodo(p, i).getPersona();
+            obtenerNodo(p, i).setPersona(obtenerNodo(p, j).getPersona());
+            obtenerNodo(p, j).setPersona(tmp);
+        }
+    }
+
+    /**
+     * <h1>BrickSort</h1>
+     * <p>
+     * Ordena la lista mediante el metodo ordenamiento por ladrillos.
+     * </p>
+     *
+     * @param p lista
+     */
+    public void brickSort(Lista p) {
+        if (!p.isEmpty()) {
+            boolean sorted = false;
+            while (!sorted) {
+                sorted = true;
+                for (int i = 0; i < p.size - 1; i += 2) {
+                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
+                        swap(p, i, i + 1);
+                        sorted = false;
+                    }
+                }
+                for (int i = 1; i < p.size - 1; i += 2) {
+                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
+                        swap(p, i, i + 1);
+                        sorted = false;
+                    }
+                }
+            }
+        }
+        pasaportePrimero();
+    }
+
     @Override
     public String toString() {
         if (!isEmpty()) {
@@ -474,7 +545,7 @@ public class Lista<T extends Comparable<T>> {
             Nodo aux = cabeza;
             int cont = 0;
             while (cont < size) {
-                builder.append(" - ").append(aux.getDato());
+                builder.append(" - ").append(aux.getPersona());
                 builder.append("\n");
                 aux = aux.getSiguiente();
                 cont++;

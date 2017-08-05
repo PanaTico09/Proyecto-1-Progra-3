@@ -309,8 +309,7 @@ public class Pila<T extends Comparable<T>> {
     /**
      * <h1>Agregar Desde PilaAux</h1>
      * <p>
-     * Agrega a las personas desde otras pilas auxiliares y las añade a la pila
-     * deseada.</p>
+     * Agrega a las personas desde otras pilas auxiliares.</p>
      *
      * @param pilaAux pila que se desea agregar.
      */
@@ -343,7 +342,7 @@ public class Pila<T extends Comparable<T>> {
                 aux = aux.getSiguiente();
             }
             return cont;
-        }else{
+        } else {
             return 0;
         }
     }
@@ -452,35 +451,6 @@ public class Pila<T extends Comparable<T>> {
         }
     }
 
-    /**
-     * <h1>BrickSort</h1>
-     * <p>
-     * Ordena la pila mediante el metodo ordenamiento por ladrillos.
-     * </p>
-     *
-     * @param p pila
-     */
-    public void brickSort(Pila p) {
-        if (!p.isEmpty()) {
-            boolean sorted = false;
-            while (!sorted) {
-                sorted = true;
-                for (int i = 0; i < p.obtenerTamaño(p) - 1; i += 2) {
-                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
-                        swap(p, i, i + 1);
-                        sorted = false;
-                    }
-                }
-                for (int i = 1; i < p.obtenerTamaño(p) - 1; i += 2) {
-                    if (p.obtenerNodo(p, i).getPersona().getCedula().compareTo(p.obtenerNodo(p, i + 1).getPersona().getCedula()) > 0) {
-                        swap(p, i, i + 1);
-                        sorted = false;
-                    }
-                }
-            }
-        }
-    }
-
     @Override
     public String toString() {
         if (!isEmpty()) {
@@ -488,7 +458,7 @@ public class Pila<T extends Comparable<T>> {
             Nodo aux = cabeza;
             int cont = 0;
             while (cont < size) {
-                builder.append(" - ").append(aux.getDato());
+                builder.append(" - ").append(aux.getPersona());
                 builder.append("\n");
                 aux = aux.getSiguiente();
                 cont++;
